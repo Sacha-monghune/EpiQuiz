@@ -22,8 +22,8 @@ export class AuthService {
             google: {
                 authorizeUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
                 tokenUrl: 'https://oauth2.googleapis.com/token',
-                clientId : '164240749432-hbcjv3telr6fnbf1empa5jq9rrhujs6g.apps.googleusercontent.com',
-                clientSecret : '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',
+                clientId : process.env.CLIENTID,
+                clientSecret : process.env.CLIENTSECRET,
                 redirectUri : 'http://localhost:4000/auth/google/callback',
                 scope: 'profile email',
                 userInfoUrl: 'https://www.googleapis.com/oauth2/v3/userinfo',

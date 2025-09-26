@@ -44,13 +44,3 @@ export class AuthController {
         }
     }
 }
-
-// {
-//   sub: '111750532237155910589',
-//   name: 'Sacha Mong hune',
-//   given_name: 'Sacha',
-//   family_name: 'Mong hune',
-//   picture: 'https://lh3.googleusercontent.com/a/ACg8ocI4aDcVXi7fXCcMQkzhoIgM7AAyd8pEjfR_rUTIB1VEjwF4mg=s96-c',
-//   email: 'smonghune@gmail.com',
-//   email_verified: true
-// }
