@@ -7,7 +7,7 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 
-const socket = io("http://localhost:4000"); // adapte l'URL selon ton back
+const socket = io("http://localhost:4000");
 
 export default function Room() {
     const router = useRouter();
@@ -30,7 +30,7 @@ export default function Room() {
     }, [id]);
 
     useEffect(() => {
-        socket.emit("joinRoom", id); // chaque user rejoint la room socket
+        socket.emit("joinRoom", id);
 
         socket.on("startQuiz", (roomId: string) => {
             console.log(room.quiz)
@@ -45,7 +45,7 @@ export default function Room() {
     }, [id, router, room]);
 
     const handleStartQuiz = () => {
-        socket.emit("startQuiz", id); // le host lance le quiz pour tous
+        socket.emit("startQuiz", id);
     };
 
     return (
