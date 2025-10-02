@@ -7,6 +7,8 @@ import { Question } from './quiz/entity/question.entity';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { User } from './user/entity/user.entity';
+import { RoomModule } from './room/room.module';
+import { Room } from './room/room.entity';
 
 @Module({
   imports: [
@@ -17,13 +19,14 @@ import { User } from './user/entity/user.entity';
       database: process.env.DB,
       port: 5432,
       synchronize: true,
-      entities: [Quiz, Question, User]
+      entities: [Quiz, Question, User, Room]
     }),
     TypeOrmModule.forFeature([User]),
     MyConfigModule,
     UserModule,
     QuizModule,
-    AuthModule
+    AuthModule,
+    RoomModule
   ],
 })
 export class AppModule {}

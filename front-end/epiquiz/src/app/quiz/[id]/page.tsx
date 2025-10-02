@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import { questions } from '../questions.js';
 import { useEffect, useState } from 'react';
 import { redirect, useParams } from 'next/navigation.js';
 
@@ -52,7 +51,7 @@ export default function Home() {
             setCurrent(current + 1);
         } else if (current === questions.length - 1) {
             alert(`Fin du Quiz, vous avez ${point} points`);
-            redirect('/');
+            redirect('/quiz');
         }
     };
 

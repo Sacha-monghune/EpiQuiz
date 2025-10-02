@@ -25,7 +25,7 @@ export class AuthController {
             const userInfo = await this.authService.getUserInfo(provider, token);
             console.log(userInfo);
 
-            let user = await this.userService.findOneBySub(userInfo.sub);
+            let user = await this.userService.findOneById(userInfo.id);
             console.log(`isUser: ${user}`);
             if (!user) {
                 user = await this.userService.create({
@@ -34,12 +34,19 @@ export class AuthController {
                     email: userInfo.email});
                 console.log('user created')
             }
-            const payload = { sub: user.sub, username: user.username };
+            const payload = { id: user.id, username: user.username };
             const accessToken = await this.jwtService.signAsync(payload)
 
-            res.json({ accessToken: accessToken });
+            res.cookie("accessToken", accessToken, {
+                httpOnly: true,
+                secure: false,
+                sameSite: "lax",
+                maxAge: 1000 * 60 * 60 * 24,
+            });
+
+            return res.redirect(`http://localhost:3000/quiz`);
         } catch (err) {
-            console.error(`Erorr ${err}`);
+            console.error(`Erorr ${err.message}`);
             res.status(500).send('Authentication failed');
         }
     }
