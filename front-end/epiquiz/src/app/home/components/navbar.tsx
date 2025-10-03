@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false);
 
     return (
         <nav className="w-full h-24 bg-[#2F53DE]">
@@ -21,7 +21,6 @@ const Navbar = () => {
                         <div className="bg-white h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
                     </li>
                     <li className="group text-xl">
-                        {/* mettre une redirection vers la page de quiz  */}
                         <Link href="/">
                             Quiz
                         </Link>
