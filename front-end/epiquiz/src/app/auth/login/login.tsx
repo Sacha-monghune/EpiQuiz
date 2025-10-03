@@ -21,6 +21,10 @@ export default function LoginPage() {
     console.log("Email:", email, "Password:", password);
   };
 
+  const handleGoogleLogin = () => {
+    window.location.href = "http://10.49.84.192:4000/auth/google/login";
+  };
+
   return (
     <section className="h-screen flex items-center justify-center bg-blue-100">
       <div className="flex flex-col items-center">
@@ -66,12 +70,26 @@ export default function LoginPage() {
           >
             Login
           </button>
+
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            className="w-full flex items-center justify-center bg-red-500 text-white p-2 rounded hover:bg-red-600 mt-3"
+          >
+            <img
+              src="https://www.svgrepo.com/show/355037/google.svg"
+              alt="Google"
+              className="h-5 w-5 mr-2"
+            />
+            Login with Google
+          </button>
+
           <p className="text-sm font-light text-gray-500">
             Don't have an account?{" "}
             <Link
               href="/login/signup"
               className="font-medium hover:underline"
-              style={{ color: "#3B82F6" }} // blue-500 hex
+              style={{ color: "#3B82F6" }}
             >
               Sign up
             </Link>

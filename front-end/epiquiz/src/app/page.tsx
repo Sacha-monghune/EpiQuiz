@@ -1,12 +1,13 @@
-import Image from "next/image";
-import Navbar from "./home/components/navbar";
+"use client"
 
+import Navbar from "./home/components/navbar";
+import HomeSection from "./home/components/Homepage";
 
 export default function Home() {
-  return (
-      <div>
-        <Navbar />
-        <button>manger</button>
-      </div>
-  );
+    return (
+        <div>
+            <Navbar />
+            <HomeSection />
+        </div>
+    );
 }
