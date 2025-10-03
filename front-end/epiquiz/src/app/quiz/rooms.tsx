@@ -19,7 +19,7 @@ export default function Rooms() {
             try {
                 const res = await fetch("http://localhost:4000/room", {
                     method: "GET",
-                    credentials: "include", // indispensable pour envoyer les cookies !
+                    credentials: "include",
                 });
                 if (!res.ok) throw new Error("Erreur API");
                 const data = await res.json();

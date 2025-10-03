@@ -12,23 +12,19 @@ export default function Quizzes() {
   const [quizzes, setQuizzes] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(false);
 
-  // Pour la création de quiz
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState("");
   const [questions, setQuestions] = React.useState([
     { question: "", answers: ["", ""], correct: "" }
   ]);
 
-  // Ouvre/ferme le dialog
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  // Ajoute une question
   const addQuestion = () => {
     setQuestions([...questions, { question: "", answers: ["", ""], correct: "" }]);
   };
 
-  // Modifie une question/réponse
   const handleQuestionChange = (idx: number, field: string, value: any) => {
     const updated = [...questions];
     if (field === "question") updated[idx].question = value;
@@ -37,14 +33,12 @@ export default function Quizzes() {
     setQuestions(updated);
   };
 
-  // Modifie une réponse d'une question
   const handleAnswerChange = (qIdx: number, aIdx: number, value: string) => {
     const updated = [...questions];
     updated[qIdx].answers[aIdx] = value;
     setQuestions(updated);
   };
 
-  // Ajoute une réponse à une question
   const addAnswer = (qIdx: number) => {
     const updated = [...questions];
     updated[qIdx].answers.push("");
@@ -70,7 +64,6 @@ export default function Quizzes() {
     }
   };
 
-  // Création du quiz
   const handleCreateQuiz = async () => {
     setLoading(true);
     try {
@@ -92,7 +85,6 @@ export default function Quizzes() {
       handleClose();
       setTitle("");
       setQuestions([{ question: "", answers: ["", ""], correct: "" }]);
-      // Optionnel: refresh la liste
       const data = await res.json();
       setQuizzes([...quizzes, data]);
     } catch (err) {

@@ -14,7 +14,6 @@ export default function Room() {
     const { id } = useParams();
     const [room, setRoom] = useState<any>(null);
 
-    // Récupère la room et son quiz
     useEffect(() => {
         const fetchRoom = async () => {
             try {

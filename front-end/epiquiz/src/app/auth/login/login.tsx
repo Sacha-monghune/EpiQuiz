@@ -18,7 +18,19 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Email:", email, "Password:", password);
+    setError("");
+    try {
+      const res = await fetch("http://localhost:4000/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+        credentials: "include",
+      });
+      if (!res.ok) throw new Error("Identifiants invalides");
+      router.push("/quiz");
+    } catch (err: any) {
+      setError(err.message || "Erreur inconnue");
+    }
   };
 
   const handleGoogleLogin = () => {
@@ -87,7 +99,7 @@ export default function LoginPage() {
           <p className="text-sm font-light text-gray-500">
             Don't have an account?{" "}
             <Link
-              href="/login/signup"
+              href="/auth/signup"
               className="font-medium hover:underline"
               style={{ color: "#3B82F6" }}
             >
