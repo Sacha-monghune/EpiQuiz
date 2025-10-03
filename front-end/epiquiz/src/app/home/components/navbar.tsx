@@ -8,7 +8,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
     return (
-        <nav className="w-full h-24 bg-[#0B27F4]">
+        <nav className="w-full h-24 bg-[#2F53DE]">
             <div className="flex justify-between items-center h-full w-full px-4 2xl:px-16 font-[Open Sans]">
                 <Link href="/">
                     <h1 className="font-Montsserat text-2xl font-bold">EPIQUIZ</h1>
