@@ -21,12 +21,8 @@ const Navbar = () => {
                         <div className="bg-white h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
                     </li>
                     <li className="group text-xl">
-<<<<<<< HEAD
-                        <Link href="/">
-=======
                         {/* mettre une redirection vers la page de quiz  */}
                         <Link href="/quiz">
->>>>>>> f17e044ee08089624850f8d1be2c606cda58121d
                             Quiz
                         </Link>
                         <div className="bg-white h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
