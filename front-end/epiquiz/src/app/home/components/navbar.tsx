@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false);
 
     return (
         <nav className="w-full h-24 bg-[#2F53DE]">
@@ -22,7 +22,7 @@ const Navbar = () => {
                     </li>
                     <li className="group text-xl">
                         {/* mettre une redirection vers la page de quiz  */}
-                        <Link href="/">
+                        <Link href="/quiz">
                             Quiz
                         </Link>
                         <div className="bg-white h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
@@ -31,8 +31,8 @@ const Navbar = () => {
 
 
                 <div className="hidden sm:flex space-x-4">
-                    <Link href="/login">
-                    <button className="bg-[#8F9BFA] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#E4BEF8] transition cursor-pointer">Sign In</button>
+                    <Link href="/auth">
+                    <button className="bg-[#8F9BFA] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#C1CCF5] transition cursor-pointer">Sign In</button>
                     </Link>
                 </div>
 

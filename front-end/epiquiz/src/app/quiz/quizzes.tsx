@@ -116,7 +116,7 @@ export default function Quizzes() {
   return (
     <div className="font-sans grid items-center justify-items-center min-h-screen">
       <h2 className="font-bold">Liste des Quiz :</h2>
-      <Button variant="contained" color="success" onClick={handleOpen} className="mb-4">
+      <Button variant="contained" onClick={handleOpen} sx={{ backgroundColor: "#1E90FF", color: "white" }} className="mb-4">
         Créer un quiz
       </Button>
       <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
