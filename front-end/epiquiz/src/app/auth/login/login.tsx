@@ -34,7 +34,7 @@ export default function LoginPage() {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://10.49.84.192:4000/auth/google/login";
+    window.location.href = "http://10.49.84.163:4000/auth/google/login";
   };
 
   return (
@@ -78,6 +78,7 @@ export default function LoginPage() {
           </div>
           <button
             type="submit"
+            onClick={handleSubmit}
             className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
           >
             Login
