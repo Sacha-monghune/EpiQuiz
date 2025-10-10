@@ -46,12 +46,12 @@ export default function Home() {
             setSelectedAnswer(null);
             setShowExplanation(false);
         } else {
-            alert(`Fin du quiz ! Vous avez ${point} point${point > 1 ? "s" : ""}.`);
-            router.push("/quiz");
+            // alert(`Fin du quiz ! Vous avez ${point} point${point > 1 ? "s" : ""}.`);
+            // router.push("/quiz");
+            router.push(`/quiz/result?score=${point}&total=${questions.length}`);
         }
     };
 
-    
 
     if (!questions.length) {
         return (
