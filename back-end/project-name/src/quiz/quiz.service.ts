@@ -12,11 +12,6 @@ export class QuizService {
     ) {}
 
 /* CRUD */
-    // findAll(): Promise<Quiz[]> {
-    //     return this.quizRepository.find({
-    //         relations: ["questions"],
-    //     });
-    // }
 
     async findAll(search?: string): Promise<Quiz[]> {
         const qb = this.quizRepository.createQueryBuilder("quiz")

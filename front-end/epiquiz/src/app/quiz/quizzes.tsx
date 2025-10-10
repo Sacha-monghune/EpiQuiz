@@ -17,7 +17,7 @@ export default function Quizzes() {
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState("");
   const [questions, setQuestions] = React.useState([
-    { question: "", answers: ["", ""], correct: "" }
+    { question: "", answers: ["", ""], correct: "", description_answer: "" }
   ]);
   const [editId, setEditId] = React.useState<number | null>(null);
   const [search, setSearch] = React.useState("");
@@ -27,18 +27,16 @@ export default function Quizzes() {
     setOpen(false);
     setEditId(null);
     setTitle("");
-    setQuestions([{ question: "", answers: ["", ""], correct: "" }]);
+    setQuestions([{ question: "", answers: ["", ""], correct: "", description_answer: "" }]);
   };
 
   const addQuestion = () => {
-    setQuestions([...questions, { question: "", answers: ["", ""], correct: "" }]);
+    setQuestions([...questions, { question: "", answers: ["", ""], correct: "", description_answer: "" }]);
   };
 
   const handleQuestionChange = (idx: number, field: string, value: any) => {
     const updated = [...questions];
-    if (field === "question") updated[idx].question = value;
-    if (field === "answer") updated[idx].answers = value;
-    if (field === "correct") updated[idx].correct = value;
+    (updated as any)[idx][field] = value;
     setQuestions(updated);
   };
 
@@ -69,7 +67,8 @@ export default function Quizzes() {
           questions: questions.map(q => ({
             question: q.question,
             answers: q.answers,
-            correct: q.correct
+            correct: q.correct,
+            description_answer: q.description_answer,
           }))
         }),
         credentials: "include",
@@ -118,7 +117,6 @@ export default function Quizzes() {
       }
     };
 
-    // petit délai pour éviter trop d’appels
     const delay = setTimeout(() => {
       fetchQuizzes();
     }, 300);
@@ -130,7 +128,7 @@ export default function Quizzes() {
     setEditId(quiz.id);
     setTitle(quiz.name);
     setQuestions(Array.isArray(quiz.questions) ? quiz.questions : [
-      { question: "", answers: ["", ""], correct: "" }
+      { question: "", answers: ["", ""], correct: "", description_answer: "" }
     ]);
     setOpen(true);
   };
@@ -147,7 +145,8 @@ export default function Quizzes() {
           questions: questions.map(q => ({
             question: q.question,
             answers: q.answers,
-            correct: q.correct
+            correct: q.correct,
+            description_answer: q.description_answer,
           }))
         }),
         credentials: "include",
@@ -169,7 +168,6 @@ export default function Quizzes() {
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
           <h2 className="text-2xl font-bold text-gray-800">Liste des Quiz</h2>
           <div className="flex gap-3 items-center w-full sm:w-auto">
-            {/* 🔍 Barre de recherche */}
             <TextField
               label="Rechercher un quiz"
               variant="outlined"
@@ -272,7 +270,20 @@ export default function Quizzes() {
                   </label>
                 </div>
               ))}
-              <Button size="small" onClick={() => addAnswer(qIdx)}>
+
+              {/* 🧠 Explication de la réponse */}
+              <TextField
+                label="Explication de la bonne réponse"
+                value={q.description_answer}
+                onChange={e => handleQuestionChange(qIdx, "description_answer", e.target.value)}
+                fullWidth
+                multiline
+                rows={3}
+                placeholder="Expliquez pourquoi cette réponse est correcte."
+                className="mt-4"
+              />
+
+              <Button size="small" onClick={() => addAnswer(qIdx)} className="mt-2">
                 + Ajouter une réponse
               </Button>
             </div>
