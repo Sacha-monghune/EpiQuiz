@@ -13,13 +13,13 @@ export default function ResultPage() {
     const percentage = Math.round((score / total) * 100);
 
     const getMessage = () => {
-        if (percentage === 100) return "Parfait !";
-        if (percentage >= 70) return "Bien Jouer";
-        if (percentage == 50) return "Pas mal, continue comme ça !";
-        if (percentage < 50) return "Pas mal, contine de t'améliorer!";
-        if (percentage <= 10) return "C'est pas grave tu réussiras la prochaine fois";
+        if (percentage <= 10) return "T'es sure t'es bon???";
+        if (percentage < 50) return "ARRRH.... Faible!";
+        if (percentage === 50) return "Tu nous vend le bred";
+        if (percentage >= 70) return "Le brèd lé fré";
+        if (percentage === 100) return "Un bon yab";
 
-        return "Tu peux t'améliorer, ne lâche rien";
+        return "Améliore ton commmerce brèd";
     };
 
     return (
