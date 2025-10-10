@@ -14,39 +14,39 @@ export default function Rooms() {
     const [rooms, setRooms] = useState<Room[]>([]);
     const router = useRouter();
 
-    useEffect(() => {
-        const fetchRooms = async () => {
-            try {
-                const res = await fetch("http://localhost:4000/room", {
-                    method: "GET",
-                    credentials: "include",
-                });
-                if (!res.ok) throw new Error("Erreur API");
-                const data = await res.json();
-                setRooms(data);
-            } catch (err) {
-                console.error("Erreur lors de la récupération des rooms:", err);
-            }
-        };
-        fetchRooms();
-    }, []);
+//     useEffect(() => {
+//         const fetchRooms = async () => {
+//             try {
+//                 const res = await fetch("http://localhost:4000/room", {
+//                     method: "GET",
+//                     credentials: "include",
+//                 });
+//                 if (!res.ok) throw new Error("Erreur API");
+//                 const data = await res.json();
+//                 setRooms(data);
+//             } catch (err) {
+//                 console.error("Erreur lors de la récupération des rooms:", err);
+//             }
+//         };
+//         fetchRooms();
+//     }, []);
 
-    const handleJoinRoom = async (idRoom: number) => {
-    try {
-        const res = await fetch(`http://localhost:4000/room/${idRoom}/join`, {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            credentials: "include",
-        });
-        if (!res.ok) throw new Error("Erreur en rejoignant la room");
-        const room = await res.json();
-        console.log("Rejoint la room:", room);
+//     const handleJoinRoom = async (idRoom: number) => {
+//     try {
+//         const res = await fetch(`http://localhost:4000/room/${idRoom}/join`, {
+//             method: "PATCH",
+//             headers: { "Content-Type": "application/json" },
+//             credentials: "include",
+//         });
+//         if (!res.ok) throw new Error("Erreur en rejoignant la room");
+//         const room = await res.json();
+//         console.log("Rejoint la room:", room);
 
-        router.push(`/room/${idRoom}`);
-    } catch (err) {
-        console.error("Erreur en rejoignant la room:", err);
-    }
-};
+//         router.push(`/room/${idRoom}`);
+//     } catch (err) {
+//         console.error("Erreur en rejoignant la room:", err);
+//     }
+// };
 
     return (
         <div>
@@ -62,7 +62,7 @@ export default function Rooms() {
                             </span>
                         </div>
                         <button
-                            onClick={() => handleJoinRoom(room.id)}
+                            // onClick={() => handleJoinRoom(room.id)}
                             className="ml-4 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
                         >
                             Rejoindre

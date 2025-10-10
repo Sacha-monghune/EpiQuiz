@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from 'react';
+import Quizzes from './quizzes';
 import Button from '@mui/material/Button';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -13,7 +14,8 @@ export default function Home() {
       <Navbar />
       <div className="font-sans grid items-center justify-items-center min-h-screen p-8 gap-8">
         <div className="mt-8">
-          <BasicTabs />
+          {/* <BasicTabs /> */}
+          <Quizzes />
         </div>
       </div>
     </div>
