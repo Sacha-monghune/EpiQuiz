@@ -15,6 +15,9 @@ export class Question {
     @Column()
     correct: string;
 
+    @Column({ nullable: true })
+    description_answer: string;
+
     @ManyToOne(() => Quiz, (quiz) => quiz.questions, { onDelete: "CASCADE" })
     quiz: Quiz;
 }

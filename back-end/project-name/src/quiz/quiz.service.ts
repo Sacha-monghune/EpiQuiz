@@ -12,8 +12,16 @@ export class QuizService {
     ) {}
 
 /* CRUD */
-    findAll(): Promise<Quiz[]> {
-        return this.quizRepository.find();
+
+    async findAll(search?: string): Promise<Quiz[]> {
+        const qb = this.quizRepository.createQueryBuilder("quiz")
+            .leftJoinAndSelect("quiz.questions", "question");
+
+        if (search) {
+            qb.where("LOWER(quiz.name) LIKE :search", { search: `%${search.toLowerCase()}%` });
+        }
+
+        return qb.getMany();
     }
 
     async findOne(id: number): Promise<Question[]> {
@@ -40,6 +48,19 @@ export class QuizService {
         if (result.affected === 0) {
             throw new NotFoundException(`Quiz ${id} not found`);
         }
+    }
+
+    async update(id: number, data: Partial<Quiz>): Promise<Quiz> {
+        const quiz = await this.quizRepository.preload({
+            id: id,
+            ...data,
+        });
+
+        if (!quiz) {
+            throw new NotFoundException(`Quiz ${id} not found`);
+        }
+
+        return this.quizRepository.save(quiz);
     }
 /* CRUD */
 }

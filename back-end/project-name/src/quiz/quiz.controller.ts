@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Put, Query } from '@nestjs/common';
 import { QuizService } from './quiz.service';
 import { Quiz } from './entity/quiz.entity';
 import { Question } from './entity/question.entity';
@@ -13,8 +13,8 @@ export class QuizController {
     }
 
     @Get()
-    findAll(): Promise<Quiz[]> {
-        return this.quizService.findAll();
+    findAll(@Query('search') search?: string): Promise<Quiz[]> {
+        return this.quizService.findAll(search);
     }
 
     @Get(':id')
@@ -22,13 +22,15 @@ export class QuizController {
         return this.quizService.findOne(id);
     }
 
-    // @Patch(':id')
-    // update(
-    //     @Param('id', ParseIntPipe) id: number,
-    //     @Body() data: Partial<Quiz>
-    // ): Promise<Quiz> {
-    //     return this.quizService.update(id, data);
-    // }
+    @Delete(":id")
+    deleteOne(@Param('id', ParseIntPipe) id: number): Promise<void> {
+        return this.quizService.remove(id);
+    }
+
+    @Put(':id')
+    update(@Param('id', ParseIntPipe) id: number, @Body() data: Partial<Quiz>): Promise<Quiz> {
+        return this.quizService.update(id, data);
+    }
 
     @Delete(':id')
     remove(@Param('id', ParseIntPipe) id: number): Promise<void> {
