@@ -7,7 +7,7 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 
-const socket = io("http://localhost:4000");
+const socket = io("http://10.49.84.163:4000");
 
 export default function Room() {
     const router = useRouter();
@@ -17,7 +17,7 @@ export default function Room() {
     useEffect(() => {
         const fetchRoom = async () => {
             try {
-                const res = await fetch(`http://localhost:4000/room/${id}`);
+                const res = await fetch(`http://10.49.84.163:4000/room/${id}`);
                 if (!res.ok) throw new Error("Erreur API");
                 const data = await res.json();
                 setRoom(data);

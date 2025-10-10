@@ -17,7 +17,7 @@ export default function Rooms() {
 //     useEffect(() => {
 //         const fetchRooms = async () => {
 //             try {
-//                 const res = await fetch("http://localhost:4000/room", {
+//                 const res = await fetch("http://10.49.84.163:4000/room", {
 //                     method: "GET",
 //                     credentials: "include",
 //                 });
@@ -33,7 +33,7 @@ export default function Rooms() {
 
 //     const handleJoinRoom = async (idRoom: number) => {
 //     try {
-//         const res = await fetch(`http://localhost:4000/room/${idRoom}/join`, {
+//         const res = await fetch(`http://10.49.84.163:4000/room/${idRoom}/join`, {
 //             method: "PATCH",
 //             headers: { "Content-Type": "application/json" },
 //             credentials: "include",

@@ -18,7 +18,7 @@ export default function Home() {
     useEffect(() => {
         const fetchQuestion = async () => {
             try {
-                const res = await fetch(`http://localhost:4000/quiz/${id}`);
+                const res = await fetch(`http://10.49.84.163:4000/quiz/${id}`);
                 if (!res.ok) throw new Error("Erreur API questions");
                 const data = await res.json();
                 setQuestions(data || []);

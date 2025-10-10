@@ -64,7 +64,7 @@ export default function Quizzes() {
   const handleCreateQuiz = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:4000/quiz", {
+      const res = await fetch("http://10.49.84.163:4000/quiz", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -98,7 +98,7 @@ export default function Quizzes() {
     if (!window.confirm("Supprimer ce quiz ?")) return;
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:4000/quiz/${id}`, {
+      const res = await fetch(`http://10.49.84.163:4000/quiz/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -115,8 +115,8 @@ export default function Quizzes() {
     const fetchQuizzes = async () => {
       try {
         const url = search
-          ? `http://localhost:4000/quiz?search=${encodeURIComponent(search)}`
-          : "http://localhost:4000/quiz";
+          ? `http://10.49.84.163:4000/quiz?search=${encodeURIComponent(search)}`
+          : "http://10.49.84.163:4000/quiz";
 
         const res = await fetch(url);
         if (!res.ok) throw new Error("Erreur API");
@@ -147,7 +147,7 @@ export default function Quizzes() {
     if (editId === null) return;
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:4000/quiz/${editId}`, {
+      const res = await fetch(`http://10.49.84.163:4000/quiz/${editId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

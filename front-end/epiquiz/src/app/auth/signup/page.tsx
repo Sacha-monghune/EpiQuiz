@@ -14,7 +14,7 @@ export default function SignupPage() {
         e.preventDefault();
         setError("");
         try {
-            const res = await fetch("http://localhost:4000/auth/signup", {
+            const res = await fetch("http://10.49.84.163:4000/auth/signup", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, username, password }),
