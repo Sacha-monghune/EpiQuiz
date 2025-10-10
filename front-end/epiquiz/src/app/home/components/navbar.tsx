@@ -29,7 +29,6 @@ const Navbar = () => {
                     </li>
                 </ul>
 
-
                 <div className="hidden sm:flex space-x-4">
                     <Link href="/auth">
                     <button className="bg-[#8F9BFA] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#C1CCF5] transition cursor-pointer">Sign In</button>

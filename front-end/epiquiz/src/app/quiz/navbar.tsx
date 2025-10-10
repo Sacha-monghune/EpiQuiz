@@ -53,12 +53,12 @@ export default function BasicTabs() {
                     <Tab
                         label="Quizzes"
                         {...a11yProps(0)}
-                        sx={{ color: 'white' }}
+                        sx={{ color: '#278BF5' }}
                     />
                     <Tab
                         label="Rooms"
                         {...a11yProps(1)}
-                        sx={{ color: 'white' }}
+                        sx={{ color: '#278BF5' }}
                     />
                 </Tabs>
             </Box>

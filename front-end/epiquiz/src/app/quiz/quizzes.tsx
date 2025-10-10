@@ -7,6 +7,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import { Update } from '@mui/icons-material';
 
 export default function Quizzes() {
   const [quizzes, setQuizzes] = React.useState<any[]>([]);
@@ -16,7 +17,7 @@ export default function Quizzes() {
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState("");
   const [questions, setQuestions] = React.useState([
-    { question: "", answers: ["", ""], correct: "" }
+    { question: "", answers: ["", ""], correct: "", image: null }
   ]);
 
   // Ouvre/ferme le dialog
@@ -25,7 +26,7 @@ export default function Quizzes() {
 
   // Ajoute une question
   const addQuestion = () => {
-    setQuestions([...questions, { question: "", answers: ["", ""], correct: "" }]);
+    setQuestions([...questions, { question: "", answers: ["", ""], correct: "", image: null }]);
   };
 
   // Modifie une question/réponse
@@ -34,6 +35,7 @@ export default function Quizzes() {
     if (field === "question") updated[idx].question = value;
     if (field === "answer") updated[idx].answers = value;
     if (field === "correct") updated[idx].correct = value;
+    if (field === "image") updated[idx].image = value;
     setQuestions(updated);
   };
 
@@ -83,7 +85,8 @@ export default function Quizzes() {
           questions: questions.map(q => ({
             question: q.question,
             answers: q.answers,
-            correct: q.correct
+            correct: q.correct,
+            image: q.image
           }))
         }),
         credentials: "include",
@@ -91,7 +94,7 @@ export default function Quizzes() {
       if (!res.ok) throw new Error("Erreur création quiz");
       handleClose();
       setTitle("");
-      setQuestions([{ question: "", answers: ["", ""], correct: "" }]);
+      setQuestions([{ question: "", answers: ["", ""], correct: "", image: null }]);
       // Optionnel: refresh la liste
       const data = await res.json();
       setQuizzes([...quizzes, data]);
@@ -146,6 +149,52 @@ export default function Quizzes() {
                 onChange={e => handleQuestionChange(qIdx, "question", e.target.value)}
                 className="mb-2"
               />
+              <div className="flex flex-col items-start mb-2">
+                <Button
+                  variant="outlined"
+                  component="label"
+                  sx={{ textTransform: "none", borderColor: "#1E90FF", color: "#1E90FF" }}
+                >
+                  {q.image ? "Changer l’image" : "Choisir une image"}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    hidden
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                          handleQuestionChange(qIdx, "image", reader.result);
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
+                  />
+                </Button>
+                {q.image && (
+                  <div className="mt-3 flex flex-col items-start">
+                    <img
+                      src={q.image}
+                      alt={`Question ${qIdx + 1}`}
+                      style={{
+                        maxWidth: "150px",
+                        borderRadius: "8px",
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                      }}
+                    />
+                    <Button
+                      size="small"
+                      color="error"
+                      onClick={() => handleQuestionChange(qIdx, "image", null)}
+                      sx={{ mt: 1 }}
+                    >
+                      Supprimer l’image
+                    </Button>
+                  </div>
+                )}
+              </div>
+
               {q.answers.map((ans, aIdx) => (
                 <div key={aIdx} className="flex items-center gap-2 mb-1">
                   <TextField
