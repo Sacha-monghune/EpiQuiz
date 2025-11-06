@@ -2,10 +2,6 @@
 
 import * as React from 'react';
 import Quizzes from './quizzes';
-import Button from '@mui/material/Button';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import BasicTabs from './navbar';
 import Navbar from '../home/components/navbar';
 
 export default function Home() {

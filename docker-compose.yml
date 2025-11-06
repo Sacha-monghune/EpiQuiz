@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: sacha
+      POSTGRES_PASSWORD: JypsiE974
+      POSTGRES_DB: db_epiquiz
+    ports:
+      - "5433:5433"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./back-end/project-name
+    restart: always
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_USER: sacha
+      DB_PASSWORD: JypsiE974
+      DB: 'db_epiquiz'
+      CLIENTID: '164240749432-hbcjv3telr6fnbf1empa5jq9rrhujs6g.apps.googleusercontent.com'
+      CLIENTSECRET: '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'
+      PORT: 4000
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./back-end/project-name:/usr/src/app
+    command: npm run dev
+
+  # frontend:
+  #   build: ./front-end/epiquiz
+  #   restart: always
+  #   depends_on:
+  #     - backend
+  #   environment:
+  #     - CHOKIDAR_USEPOLLING=true
+  #     - WDS_SOCKET_PORT=3000
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ./frontend/epiquiz:/app
+  #     - /app/node_modules
+  #   command: npm run dev
+
+volumes:
+  db_data:

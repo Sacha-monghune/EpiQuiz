@@ -30,7 +30,7 @@ export class AuthController {
     @Post('login')
     async login(@Body() body: { email: string, password: string }, @Res() res: Response) {
         const user = await this.userService.findByEmail(body.email);
-        if (!user || user.password !== body.password) { // remplacer par un vrai hash
+        if (!user || user.password !== body.password) {
             throw new UnauthorizedException("Identifiants invalides");
         }
         const payload = { id: user.id, username: user.username };

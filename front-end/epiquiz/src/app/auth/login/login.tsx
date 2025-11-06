@@ -4,11 +4,11 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 
-type JWTPayload = {
-  sub: string;
-  role: string;
-  email: string;
-};
+// type JWTPayload = {
+//   sub: string;
+//   role: string;
+//   email: string;
+// };
 
 export default function LoginPage() {
   const router = useRouter();
@@ -20,7 +20,7 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
     try {
-      const res = await fetch("http://10.49.84.163:4000/auth/login", {
+      const res = await fetch("http://localhost:4000/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -34,7 +34,7 @@ export default function LoginPage() {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://10.49.84.163:4000/auth/google/login";
+    window.location.href = "http://localhost:4000/auth/google/login";
   };
 
   return (

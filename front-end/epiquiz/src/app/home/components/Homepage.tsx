@@ -1,7 +1,5 @@
 "use client"
 
-import { LucideCuboid } from "lucide-react"
-
 const HomeSection = () => {
     return (
         <div className="flex items-center justify-center min-h-screen">

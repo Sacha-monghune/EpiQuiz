@@ -14,11 +14,12 @@ export default function Home() {
     const [point, setPoint] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
     const [showExplanation, setShowExplanation] = useState(false);
+    const [userResponses, setUserResponses] = useState<string[]>([]); // 🆕 tableau des réponses utilisateur
 
     useEffect(() => {
         const fetchQuestion = async () => {
             try {
-                const res = await fetch(`http://10.49.84.163:4000/quiz/${id}`);
+                const res = await fetch(`http://localhost:4000/quiz/${id}`);
                 if (!res.ok) throw new Error("Erreur API questions");
                 const data = await res.json();
                 setQuestions(data || []);
@@ -35,23 +36,44 @@ export default function Home() {
         setSelectedAnswer(answer);
         setShowExplanation(true);
 
+        // 🔹 Ajout de la réponse dans le tableau
+        setUserResponses(prev => [...prev, answer]);
+
         if (answer === questions[current].correct) {
             setPoint(prev => prev + 1);
         }
     };
 
-    const handleNextQuestion = () => {
+    const handleNextQuestion = async () => {
         if (current < questions.length - 1) {
             setCurrent(prev => prev + 1);
             setSelectedAnswer(null);
             setShowExplanation(false);
         } else {
+            // 🧩 Fin du quiz → envoi à l'API
+            try {
+                const res = await fetch(`http://localhost:4000/quiz/${id}/response`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include", // important pour envoyer les cookies !
+                    body: JSON.stringify({
+                        responses: userResponses,
+                    }),
+                });
+
+                if (!res.ok) throw new Error("Erreur lors de l'envoi des réponses");
+                const data = await res.json();
+                console.log("✅ Réponses sauvegardées :", data);
+            } catch (err) {
+                console.error("Erreur API réponses :", err);
+            }
+
             alert(`Fin du quiz ! Vous avez ${point} point${point > 1 ? "s" : ""}.`);
             router.push("/quiz");
         }
     };
-
-    
 
     if (!questions.length) {
         return (
@@ -85,11 +107,11 @@ export default function Home() {
                         const isCorrect = answer === currentQuestion.correct;
                         const isSelected = selectedAnswer === answer;
                         const color =
-                        showExplanation && isSelected
-                        ? isCorrect
-                        ? "success"
-                        : "error"
-                        : "primary";
+                            showExplanation && isSelected
+                                ? isCorrect
+                                    ? "success"
+                                    : "error"
+                                : "primary";
 
                         return (
                             <Button
@@ -105,7 +127,6 @@ export default function Home() {
                     })}
                 </div>
 
-                {/* Explication après réponse */}
                 {showExplanation && (
                     <div className="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded">
                         <p className="text-gray-700">
