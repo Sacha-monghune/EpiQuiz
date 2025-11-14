@@ -18,7 +18,8 @@ export default function Quizzes() {
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState("");
   const [questions, setQuestions] = React.useState([
-    { question: "", answers: ["", ""], correct: "", image: null, description_answer: "" }
+    { question: "", answers: ["", ""], correct: "", image: null, description_answer: "", timer: 30 }
+
   ]);
   const [editId, setEditId] = React.useState<number | null>(null);
   const [search, setSearch] = React.useState("");
@@ -28,11 +29,11 @@ export default function Quizzes() {
     setOpen(false);
     setEditId(null);
     setTitle("");
-    setQuestions([{ question: "", answers: ["", ""], correct: "", description_answer: "", image: null }]);
+    setQuestions([{ question: "", answers: ["", ""], correct: "", description_answer: "", image: null, timer: 30 }]);
   };
 
   const addQuestion = () => {
-    setQuestions([...questions, { question: "", answers: ["", ""], correct: "", description_answer: "", image: null }]);
+    setQuestions([...questions, { question: "", answers: ["", ""], correct: "", description_answer: "", image: null, timer: 30 }]);
   };
 
   const handleQuestionChange = (idx: number, field: string, value: any) => {
@@ -42,8 +43,10 @@ export default function Quizzes() {
     if (field === "correct") updated[idx].correct = value;
     if (field === "image") updated[idx].image = value;
     if (field === "description_answer") updated[idx].description_answer = value;
+    if (field === "timer") updated[idx].timer = value;
     setQuestions(updated);
   };
+
 
   const handleAnswerChange = (qIdx: number, aIdx: number, value: string) => {
     const updated = [...questions];
@@ -75,6 +78,7 @@ export default function Quizzes() {
             correct: q.correct,
             image: q.image,
             description_answer: q.description_answer,
+            timer: q.timer
           }))
         }),
         credentials: "include",
@@ -82,7 +86,7 @@ export default function Quizzes() {
       if (!res.ok) throw new Error("Erreur création quiz");
       handleClose();
       setTitle("");
-      setQuestions([{ question: "", answers: ["", ""], correct: "", image: null, description_answer: "" }]);
+      setQuestions([{ question: "", answers: ["", ""], correct: "", image: null, description_answer: "", timer: 30 }]);
       // Optionnel: refresh la liste
       const data = await res.json();
       setQuizzes([...quizzes, data]);
@@ -157,6 +161,7 @@ export default function Quizzes() {
             answers: q.answers,
             correct: q.correct,
             description_answer: q.description_answer,
+            timer: q.timer
           }))
         }),
         credentials: "include",
@@ -261,6 +266,15 @@ export default function Quizzes() {
                 onChange={e => handleQuestionChange(qIdx, "question", e.target.value)}
                 className="mb-3"
               />
+              <TextField
+                label="Temps (en secondes)"
+                type="number"
+                fullWidth
+                className="mb-3"
+                value={q.timer}
+                onChange={(e) => handleQuestionChange(qIdx, "timer", Number(e.target.value))}
+              />
+
               <div className="flex flex-col items-start mb-2">
                 <Button
                   variant="outlined"
