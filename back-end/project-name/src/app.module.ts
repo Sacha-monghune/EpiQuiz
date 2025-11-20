@@ -15,15 +15,14 @@ import { ResponseUser } from './user/entity/response.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      username: process.env.DB_USER,
-      host: process.env.DB_HOST || 'localhost',
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB,
-      port: 5432,
+      url: process.env.DATABASE_URL,
       synchronize: true,
-      entities: [Quiz, Question, User, Room, ResponseUser]
+      entities: [Quiz, Question, User, Room, ResponseUser],
+      extra: {
+        ssl: { rejectUnauthorized: false },
+      },
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([Quiz, Question, User, Room, ResponseUser]),
     MyConfigModule,
     UserModule,
     QuizModule,

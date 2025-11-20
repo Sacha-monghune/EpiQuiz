@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToOne, CreateDateColumn } from 'typeorm';
 import { User } from './user.entity';
+import { Quiz } from 'src/quiz/entity/quiz.entity';
 
 @Entity()
 export class ResponseUser {
@@ -8,7 +9,13 @@ export class ResponseUser {
 
     @Column("simple-array", { nullable: true })
     responses: string[];
-    
+
     @ManyToOne(() => User, user => user.responses, { onDelete: 'CASCADE' })
     user: User;
+
+    @ManyToOne(() => Quiz, quiz => quiz.responses, { onDelete: 'CASCADE' })
+    quiz: Quiz;
+
+    @CreateDateColumn()
+    createdAt: Date;
 }

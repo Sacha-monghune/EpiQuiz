@@ -1,23 +1,21 @@
 version: '3.8'
 
 services:
-  db:
-    image: postgres:16
-    restart: always
-    environment:
-      POSTGRES_USER: sacha
-      POSTGRES_PASSWORD: JypsiE974
-      POSTGRES_DB: db_epiquiz
-    ports:
-      - "5432:5432"
-    volumes:
-      - db_data:/var/lib/postgresql/data
+  # db:
+  #   image: postgres:16
+  #   restart: always
+  #   environment:
+  #     POSTGRES_USER: sacha
+  #     POSTGRES_PASSWORD: JypsiE974
+  #     POSTGRES_DB: db_epiquiz
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - db_data:/var/lib/postgresql/data
 
   backend:
     build: ./back-end/project-name
     restart: always
-    depends_on:
-      - db
     environment:
       DB_HOST: db
       DB_USER: sacha
@@ -26,6 +24,7 @@ services:
       CLIENTID: '164240749432-hbcjv3telr6fnbf1empa5jq9rrhujs6g.apps.googleusercontent.com'
       CLIENTSECRET: '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'
       PORT: 4000
+      DATABASE_URL: "postgresql://postgres.vufaawkufeytvgzcdyia:JypsiE974@aws-1-eu-north-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
     ports:
       - "4000:4000"
     volumes:

@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Question } from "./question.entity";
+import { ResponseUser } from "src/user/entity/response.entity"
 
 @Entity()
 export class Quiz {
@@ -9,11 +10,13 @@ export class Quiz {
     @Column()
     name: string;
 
-    @OneToMany(() => Question, (question) => question.quiz, {
-        cascade: true,
-    })
+    @OneToMany(() => Question, question => question.quiz, { cascade: true })
     questions: Question[];
 
     @CreateDateColumn()
-    created_at: Date;
+    createdAt: Date;
+
+    @OneToMany(() => ResponseUser, responseUser => responseUser.quiz)
+    responses: ResponseUser[];
 }
+

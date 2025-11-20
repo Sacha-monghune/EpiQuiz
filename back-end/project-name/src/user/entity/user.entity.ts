@@ -13,7 +13,7 @@ export class User {
     email: string;
 
     @Column({ nullable: true })
-    password: string
+    password: string;
 
     @Column({ default: 0})
     score: number;
@@ -22,5 +22,6 @@ export class User {
     createdAt: Date;
 
     @OneToMany(() => ResponseUser, response => response.user)
-    responses: Response[];
+    responses: ResponseUser[];
 }
+
