@@ -186,270 +186,271 @@ export default function Quizzes() {
       setLoading(false);
     }
   };
+
 return (
-  <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 py-10 px-4 font-sans">
+    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 py-10 px-4 font-sans">
 
-    {/* CONTAINER PRINCIPAL */}
-    <div className="max-w-5xl mx-auto bg-white rounded-3xl shadow-xl p-8 space-y-8">
+      {/* CONTAINER PRINCIPAL */}
+      <div className="max-w-5xl mx-auto bg-white rounded-3xl shadow-xl p-8 space-y-8">
 
-      {/* HEADER */}
-      <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-        <h2 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
-          <BookOpen size={28} /> Gestion des Quiz
-        </h2>
+        {/* HEADER */}
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+          <h2 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
+            <BookOpen size={28} /> Gestion des Quiz
+          </h2>
 
-        <div className="flex gap-3 items-center w-full sm:w-auto">
-          <TextField
-            label={
-              <span className="flex items-center gap-2">
-                <Search size={16} /> Rechercher un quiz
-              </span>
-            }
-            variant="outlined"
-            size="small"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            sx={{
-              backgroundColor: "white",
-              borderRadius: "8px",
-              width: "240px",
-            }}
-          />
+          <div className="flex gap-3 items-center w-full sm:w-auto">
+            <TextField
+              label={
+                <span className="flex items-center gap-2">
+                  <Search size={16} /> Rechercher un quiz
+                </span>
+              }
+              variant="outlined"
+              size="small"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              sx={{
+                backgroundColor: "white",
+                borderRadius: "8px",
+                width: "240px",
+              }}
+            />
 
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#1E90FF",
-              color: "white",
-              px: 2.5,
-              py: 1,
-              borderRadius: "10px",
-              display: "flex",
-              alignItems: "center",
-              gap: "6px",
-            }}
-            onClick={handleOpen}
-          >
-            <Plus size={18} /> Nouveau quiz
-          </Button>
-        </div>
-      </div>
-
-      {/* GRILLE DES QUIZ */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
-        {quizzes.map((quiz) => (
-          <div
-            key={quiz.id}
-            className="p-5 bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition flex flex-col justify-between"
-          >
-            <div>
-              <h3 className="text-xl font-semibold text-blue-600 mb-1">
-                {quiz.name}
-              </h3>
-              <p className="text-sm text-gray-500">
-                {quiz.questions?.length || 0} question
-                {quiz.questions?.length > 1 ? "s" : ""}
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-2 mt-4">
-              <Button
-                variant="contained"
-                size="small"
-                sx={{ borderRadius: "8px", display: "flex", gap: "6px" }}
-                onClick={() => handleGoQuiz(quiz.id)}
-              >
-                <Play size={16} /> Lancer le quiz
-              </Button>
-
-              <div className="flex gap-2">
-                <Button
-                  variant="outlined"
-                  size="small"
-                  sx={{ borderRadius: "8px", display: "flex", gap: "6px" }}
-                  onClick={() => handleEditQuiz(quiz)}
-                >
-                  <Pencil size={16} /> Modifier
-                </Button>
-
-                <Button
-                  variant="outlined"
-                  size="small"
-                  color="error"
-                  sx={{ borderRadius: "8px", display: "flex", gap: "6px" }}
-                  onClick={() => handleDeleteQuiz(quiz.id)}
-                >
-                  <Trash2 size={16} /> Supprimer
-                </Button>
-              </div>
-            </div>
-          </div>
-        ))}
-
-        {quizzes.length === 0 && (
-          <p className="col-span-full text-center text-gray-500 mt-6">
-            Aucun quiz trouvé.
-          </p>
-        )}
-      </div>
-    </div>
-
-    {/* MODAL FORMULAIRE */}
-    <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
-      <DialogTitle className="text-xl font-bold flex items-center gap-2">
-        {editId ? (
-          <>
-            <Pencil size={20} /> Modifier le quiz
-          </>
-        ) : (
-          <>
-            <Plus size={20} /> Créer un nouveau quiz
-          </>
-        )}
-      </DialogTitle>
-
-      <DialogContent dividers sx={{ backgroundColor: "#F9FAFB" }}>
-        {/* TITRE */}
-        <div className="mb-6">
-          <TextField
-            label="Titre du quiz"
-            fullWidth
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-
-        {/* LISTE DES QUESTIONS */}
-        <div className="space-y-8">
-          {questions.map((q, qIdx) => (
-            <div
-              key={qIdx}
-              className="bg-white rounded-2xl border-3 border-gray-200 shadow-sm p-5"
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "#1E90FF",
+                color: "white",
+                px: 2.5,
+                py: 1,
+                borderRadius: "10px",
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+              }}
+              onClick={handleOpen}
             >
-              <h3 className="font-bold text-lg mb-4">Question {qIdx + 1}</h3>
+              <Plus size={18} /> Nouveau quiz
+            </Button>
+          </div>
+        </div>
 
-              <TextField
-                label="Intitulé"
-                fullWidth
-                value={q.question}
-                sx={{ mb: 3 }}
-                onChange={(e) =>
-                  handleQuestionChange(qIdx, "question", e.target.value)
-                }
-              />
+        {/* GRILLE DES QUIZ */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
+          {quizzes.map((quiz) => (
+            <div
+              key={quiz.id}
+              className="p-5 bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition flex flex-col justify-between"
+            >
+              <div>
+                <h3 className="text-xl font-semibold text-blue-600 mb-1">
+                  {quiz.name}
+                </h3>
+                <p className="text-sm text-gray-500">
+                  {quiz.questions?.length || 0} question
+                  {quiz.questions?.length > 1 ? "s" : ""}
+                </p>
+              </div>
 
-              <TextField
-                label="Temps (secondes)"
-                type="number"
-                fullWidth
-                sx={{ mb: 3 }}
-                value={q.timer}
-                onChange={(e) =>
-                  handleQuestionChange(qIdx, "timer", Number(e.target.value))
-                }
-              />
-
-              {/* IMAGE */}
-              <div className="mb-4">
+              <div className="flex flex-col gap-2 mt-4">
                 <Button
-                  variant="outlined"
-                  component="label"
-                  sx={{ borderRadius: "10px", display: "flex", gap: "6px" }}
+                  variant="contained"
+                  size="small"
+                  sx={{ borderRadius: "8px", display: "flex", gap: "6px" }}
+                  onClick={() => handleGoQuiz(quiz.id)}
                 >
-                  <ImagePlus size={16} />
-                  {q.image ? "Changer l’image" : "Ajouter une image"}
-
-                  <input
-                    type="file"
-                    hidden
-                    accept="image/*"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (!file) return;
-                      const reader = new FileReader();
-                      reader.onloadend = () => {
-                        handleQuestionChange(qIdx, "image", reader.result);
-                      };
-                      reader.readAsDataURL(file);
-                    }}
-                  />
+                  <Play size={16} /> Lancer le quiz
                 </Button>
 
-                {q.image && (
-                  <div className="mt-3">
-                    <img
-                      src={q.image}
-                      alt="Question"
-                      className="max-w-[150px] rounded-lg shadow-md"
-                    />
-                  </div>
-                )}
+                <div className="flex gap-2">
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    sx={{ borderRadius: "8px", display: "flex", gap: "6px" }}
+                    onClick={() => handleEditQuiz(quiz)}
+                  >
+                    <Pencil size={16} /> Modifier
+                  </Button>
+
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    color="error"
+                    sx={{ borderRadius: "8px", display: "flex", gap: "6px" }}
+                    onClick={() => handleDeleteQuiz(quiz.id)}
+                  >
+                    <Trash2 size={16} /> Supprimer
+                  </Button>
+                </div>
               </div>
-
-              {/* RÉPONSES */}
-              <div className="space-y-3">
-                {q.answers.map((ans, aIdx) => (
-                  <div key={aIdx} className="flex items-center gap-3">
-                    <TextField
-                      label={`Réponse ${aIdx + 1}`}
-                      fullWidth
-                      value={ans}
-                      onChange={(e) =>
-                        handleAnswerChange(qIdx, aIdx, e.target.value)
-                      }
-                    />
-                    <label className="flex items-center gap-2 text-sm">
-                      <input
-                        type="radio"
-                        name={`correct-${qIdx}`}
-                        checked={q.correct === ans}
-                        onChange={() =>
-                          handleQuestionChange(qIdx, "correct", ans)
-                        }
-                      />
-                      Correcte
-                    </label>
-                  </div>
-                ))}
-              </div>
-
-              <Button
-                size="small"
-                onClick={() => addAnswer(qIdx)}
-                sx={{ mt: 1, display: "flex", gap: "6px" }}
-              >
-                <CirclePlus size={16} /> Ajouter une réponse
-              </Button>
-
-              <TextField
-                label="Explication"
-                multiline
-                rows={3}
-                fullWidth
-                className="mt-4"
-                value={q.description_answer}
-                onChange={(e) =>
-                  handleQuestionChange(qIdx, "description_answer", e.target.value)
-                }
-              />
             </div>
           ))}
 
-          <Button onClick={addQuestion} sx={{ display: "flex", gap: "6px" }}>
-            <CirclePlus size={18} /> Ajouter une question
-          </Button>
+          {quizzes.length === 0 && (
+            <p className="col-span-full text-center text-gray-500 mt-6">
+              Aucun quiz trouvé.
+            </p>
+          )}
         </div>
-      </DialogContent>
+      </div>
 
-      <DialogActions>
-        <Button onClick={handleClose}>Annuler</Button>
+      {/* MODAL FORMULAIRE */}
+      <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+        <DialogTitle className="text-xl font-bold flex items-center gap-2">
+          {editId ? (
+            <>
+              <Pencil size={20} /> Modifier le quiz
+            </>
+          ) : (
+            <>
+              <Plus size={20} /> Créer un nouveau quiz
+            </>
+          )}
+        </DialogTitle>
 
-        <Button variant="contained" onClick={editId ? handleUpdateQuiz : handleCreateQuiz}>
-          {editId ? "Sauvegarder" : "Créer"}
-        </Button>
-      </DialogActions>
-    </Dialog>
-  </div>
-);
+        <DialogContent dividers sx={{ backgroundColor: "#F9FAFB" }}>
+          {/* TITRE */}
+          <div className="mb-6">
+            <TextField
+              label="Titre du quiz"
+              fullWidth
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+
+          {/* LISTE DES QUESTIONS */}
+          <div className="space-y-8">
+            {questions.map((q, qIdx) => (
+              <div
+                key={qIdx}
+                className="bg-white rounded-2xl border-3 border-gray-200 shadow-sm p-5"
+              >
+                <h3 className="font-bold text-lg mb-4">Question {qIdx + 1}</h3>
+
+                <TextField
+                  label="Intitulé"
+                  fullWidth
+                  value={q.question}
+                  sx={{ mb: 3 }}
+                  onChange={(e) =>
+                    handleQuestionChange(qIdx, "question", e.target.value)
+                  }
+                />
+
+                <TextField
+                  label="Temps (secondes)"
+                  type="number"
+                  fullWidth
+                  sx={{ mb: 3 }}
+                  value={q.timer}
+                  onChange={(e) =>
+                    handleQuestionChange(qIdx, "timer", Number(e.target.value))
+                  }
+                />
+
+                {/* IMAGE */}
+                <div className="mb-4">
+                  <Button
+                    variant="outlined"
+                    component="label"
+                    sx={{ borderRadius: "10px", display: "flex", gap: "6px" }}
+                  >
+                    <ImagePlus size={16} />
+                    {q.image ? "Changer l’image" : "Ajouter une image"}
+
+                    <input
+                      type="file"
+                      hidden
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                          handleQuestionChange(qIdx, "image", reader.result);
+                        };
+                        reader.readAsDataURL(file);
+                      }}
+                    />
+                  </Button>
+
+                  {q.image && (
+                    <div className="mt-3">
+                      <img
+                        src={q.image}
+                        alt="Question"
+                        className="max-w-[150px] rounded-lg shadow-md"
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* RÉPONSES */}
+                <div className="space-y-3">
+                  {q.answers.map((ans, aIdx) => (
+                    <div key={aIdx} className="flex items-center gap-3">
+                      <TextField
+                        label={`Réponse ${aIdx + 1}`}
+                        fullWidth
+                        value={ans}
+                        onChange={(e) =>
+                          handleAnswerChange(qIdx, aIdx, e.target.value)
+                        }
+                      />
+                      <label className="flex items-center gap-2 text-sm">
+                        <input
+                          type="radio"
+                          name={`correct-${qIdx}`}
+                          checked={q.correct === ans}
+                          onChange={() =>
+                            handleQuestionChange(qIdx, "correct", ans)
+                          }
+                        />
+                        Correcte
+                      </label>
+                    </div>
+                  ))}
+                </div>
+
+                <Button
+                  size="small"
+                  onClick={() => addAnswer(qIdx)}
+                  sx={{ mt: 1, display: "flex", gap: "6px" }}
+                >
+                  <CirclePlus size={16} /> Ajouter une réponse
+                </Button>
+
+                <TextField
+                  label="Explication"
+                  multiline
+                  rows={3}
+                  fullWidth
+                  className="mt-4"
+                  value={q.description_answer}
+                  onChange={(e) =>
+                    handleQuestionChange(qIdx, "description_answer", e.target.value)
+                  }
+                />
+              </div>
+            ))}
+
+            <Button onClick={addQuestion} sx={{ display: "flex", gap: "6px" }}>
+              <CirclePlus size={18} /> Ajouter une question
+            </Button>
+          </div>
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={handleClose}>Annuler</Button>
+
+          <Button variant="contained" onClick={editId ? handleUpdateQuiz : handleCreateQuiz}>
+            {editId ? "Sauvegarder" : "Créer"}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
 
 }
