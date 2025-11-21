@@ -25,6 +25,7 @@ export default function QuizPage() {
             if (!res.ok) throw new Error("Erreur API questions");
             const data = await res.json();
             setQuestions(data || []);
+            console.log(data);
             } catch (err) {
                 console.error("Erreur lors de la récupération des questions:", err);
             }

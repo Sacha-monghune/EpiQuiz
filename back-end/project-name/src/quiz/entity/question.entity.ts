@@ -20,4 +20,7 @@ export class Question {
 
     @ManyToOne(() => Quiz, (quiz) => quiz.questions, { onDelete: "CASCADE" })
     quiz: Quiz;
+
+    @Column({nullable: true})
+    timer: number;
 }

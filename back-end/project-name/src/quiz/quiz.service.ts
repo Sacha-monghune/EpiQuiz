@@ -32,6 +32,7 @@ export class QuizService {
 
         if (!quiz)
             throw new NotFoundException(`Quiz ${id} not found`);
+        console.log(quiz.questions)
         return quiz.questions;
     }
 
