@@ -20,7 +20,7 @@ export default function SignupPage() {
                 body: JSON.stringify({ email, username, password }),
         });
             if (!res.ok) throw new Error("Erreur lors de la création du compte");
-            router.push("/auth/login");
+            router.push("/auth");
         } catch (err: any) {
             setError(err.message || "Erreur inconnue");
         }

@@ -10,6 +10,12 @@ export class ResponseUser {
     @Column("simple-array", { nullable: true })
     responses: string[];
 
+    @Column()
+    score: number;
+
+    @Column()
+    total: number;
+
     @ManyToOne(() => User, user => user.responses, { onDelete: 'CASCADE' })
     user: User;
 

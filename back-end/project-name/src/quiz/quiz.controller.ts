@@ -1,4 +1,16 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Put, Query, Req } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    ParseIntPipe,
+    Patch,
+    Post,
+    Put,
+    Query,
+    Req
+} from '@nestjs/common';
 import { QuizService } from './quiz.service';
 import { Quiz } from './entity/quiz.entity';
 import { Question } from './entity/question.entity';
@@ -42,10 +54,11 @@ export class QuizController {
         return this.quizService.remove(id);
     }
 
+    // route qui permet de sauvegarder nos quuiz pour le user comme ça Luan peut être content
     @Post(':id/response')
     async saveResponse(
         @Param('id', ParseIntPipe) quizId: number,
-        @Body() body: { responses: string[] },
+        @Body() body: { responses: string[]; score: number; total: number },
         @Req() req: AuthenticatedRequest,
     ) {
         const userId = req.cookies?.userId;
@@ -54,7 +67,11 @@ export class QuizController {
             throw new Error('Utilisateur non authentifié');
         }
 
-        // body.responses = tableau de réponses utilisateur
-        return this.userService.saveUserResponse(+userId, body.responses);
+        return this.userService.saveUserResponse({
+            userId: +userId, quizId,
+            responses: body.responses,
+            score: body.score,
+            total: body.total,
+        });
     }
 }

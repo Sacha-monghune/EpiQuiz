@@ -7,7 +7,6 @@ export default function ResultPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  // Récupération des données passées depuis le quiz
   const score = Number(searchParams.get("score")) || 0;
   const total = Number(searchParams.get("total")) || 0;
   const questions = JSON.parse(searchParams.get("questions") || "[]");
